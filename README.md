@@ -1,11 +1,26 @@
 # prompt-link
 
-O plugin prompt-link transforma qualquer texto em um link de prompt pronto. O link abre o Claude, o ChatGPT, o Perplexity ou o Grok com o texto já preenchido.
+![license - MIT](https://img.shields.io/badge/license-MIT-green)
+![site - prazocerto.me](https://img.shields.io/badge/site-prazocerto.me-230023)
+![linkedin - @marioluciofjr](https://img.shields.io/badge/linkedin-marioluciofjr-blue)
 
-O plugin codifica o texto, confere o limite de tamanho, encurta pelo zip1.io, testa o link e entrega o endereço aprovado.
+## Índice
 
-## Para que serve
+* [Introdução](#introdução)
+* [Estrutura do projeto](#estrutura-do-projeto)
+* [Requisitos](#requisitos)
+* [Como instalar no Claude Cowork](#como-instalar-no-claude-cowork)
+* [Como instalar no Claude Code](#como-instalar-no-claude-code)
+* [Exemplos de uso](#exemplos-de-uso)
+* [Links úteis](#links-úteis)
+* [Contribuições](#contribuições)
+* [Licença](#licença)
+* [Contato](#contato)
 
+## Introdução
+O plugin prompt-link transforma qualquer texto em um link de prompt pronto. O link abre o Claude, o ChatGPT, o Perplexity ou o Grok com o texto já preenchido. O plugin codifica o texto, confere o limite de tamanho, encurta pelo zip1.io, testa o link e entrega o endereço aprovado.
+
+## Estrutura do projeto
 Quem recebe um prompt em texto precisa copiar e colar. Um link de prompt elimina esses dois passos.
 
 O plugin resolve três problemas dessa conversão:
@@ -14,63 +29,7 @@ O plugin resolve três problemas dessa conversão:
 2. O encurtador recusa URLs muito longas. O plugin mede a URL antes de enviar.
 3. Um link malformado leva a pessoa a uma conversa vazia. O plugin confere no zip1.io para onde o link curto leva antes de entregar, sem abrir o link.
 
-## Como instalar no Claude Cowork
-
-O Cowork instala o plugin pelo marketplace do repositório.
-
-1. Abra a aba **Cowork** no aplicativo Claude.
-2. Selecione **Personalizar** na barra lateral esquerda.
-3. Clique na aba **Plugins**.
-4. Clique no botão **Adicionar**.
-5. Escolha **Adicionar marketplace**.
-6. Escolha **Adicioar de um repositório**.
-7. Informe o endereço `https://github.com/marioluciofjr/prompt-link`.
-8. Instale o plugin prompt-link na lista que aparece.
-
-O Cowork guarda o plugin no seu computador. Instale plugins apenas de fontes que você conhece.
-
-### Depois de instalar
-
-Autorize o conector `zip1` quando o aplicativo pedir. Sem essa autorização, o plugin monta e testa o link, mas entrega a URL longa.
-
-## Como instalar no Claude Code
-
-Execute os dois comandos no terminal:
-
-```
-/plugin marketplace add marioluciofjr/prompt-link
-/plugin install prompt-link@marioluciofjr
-```
-
-## Requisitos
-
-| Item | Necessário | Se faltar |
-|------|------------|-----------|
-| Python 3.8 ou superior | Sim | O script de codificação não roda. No Windows, o comando costuma ser `python` em vez de `python3` |
-| Conector `zip1` | Não | O plugin entrega a URL longa, sem encurtar, e informa o código e o significado do erro |
-
-O script usa apenas a biblioteca padrão do Python. Você não instala nenhuma dependência externa.
-
-## Como usar
-
-Peça em linguagem natural:
-
-- "Transforma esse texto em um link do ChatGPT"
-- "Gera um link de prompt com isso aqui"
-- "Encurta esse prompt em link pra eu compartilhar no Perplexity"
-- "Como fica esse texto em percent-encoding pro grok.com/?q="
-
-O fluxo roda em três etapas:
-
-| Etapa | Ação | Responsável |
-|-------|------|-------------|
-| 1 | Confere se há prompt, se há destino válido e se a URL cabe no limite | Agente `analisador` |
-| 2 | Codifica o texto e monta a URL longa | Agente `montador` |
-| 3 | Encurta pelo zip1.io, testa e entrega o link | Agente `encurtador` |
-
-O `analisador` aponta todas as pendências de uma vez. Se faltar algo, o Claude pergunta antes de montar o link.
-
-## Destinos suportados
+### Destinos suportados
 
 | Destino | Chave | Base da URL |
 |---------|-------|-------------|
@@ -81,7 +40,7 @@ O `analisador` aponta todas as pendências de uma vez. Se faltar algo, o Claude 
 
 O plugin não tem destino padrão. Se você não informar o destino, o Claude pergunta antes de codificar.
 
-## Formato da entrega
+### Formato da entrega
 
 A entrega final mostra dois endereços:
 
@@ -97,7 +56,7 @@ Dois casos abrem exceção:
 1. O zip1.io devolve erro ou não responde. O plugin entrega a URL longa e informa o código e o significado do erro. Exemplo: o erro `429` indica o limite de 10 links por minuto por IP.
 2. Você pede o link completo. O plugin entrega os dois endereços.
 
-## Limite de tamanho
+### Limite de tamanho
 
 O limite é de **7.500 caracteres de URL**. A contagem soma a base do destino e a query codificada.
 
@@ -111,7 +70,7 @@ O percent-encoding infla o texto. Um `á` ocupa 6 caracteres. Uma quebra de linh
 
 Na prática, o teto de texto fica entre 3.700 e 5.300 caracteres. O script informa o fator medido e o teto estimado a cada execução.
 
-## Regra de codificação
+### Regra de codificação
 
 O plugin aplica a norma RFC 3986 de forma estrita. Passam como literais apenas `A-Z`, `a-z`, `0-9`, `-`, `.`, `_` e `~`.
 
@@ -126,7 +85,7 @@ A skill traz três referências e um modelo:
 - `references/erros-zip1.md` — códigos de erro do zip1.io e o significado de cada um
 - `assets/formato-entrega.md` — modelo único da entrega final e das exceções
 
-## Componentes
+### Componentes
 
 | Tipo | Nome | Função |
 |------|------|--------|
@@ -136,7 +95,7 @@ A skill traz três referências e um modelo:
 | Agente | `encurtador` | Encurta pelo zip1.io, confere no zip1.io o destino do link curto e faz a entrega final |
 | Conector | `zip1` | Servidor MCP do encurtador zip1.io (`https://zip1.io/mcp`) |
 
-## Script auxiliar
+### Script auxiliar
 
 ```bash
 # confere prompt, destino e limite (sem --destino, mede os quatro destinos)
@@ -166,7 +125,7 @@ O script devolve JSON. Os códigos de retorno são quatro:
 | `2` | Round-trip ou conferência falhou |
 | `3` | URL acima de 7.500 caracteres |
 
-## Arquitetura do script
+### Arquitetura do script
 
 O script é orientado a objetos, com alta coesão e baixo acoplamento. Cada classe tem uma responsabilidade e recebe suas dependências no construtor.
 
@@ -188,7 +147,7 @@ O script é orientado a objetos, com alta coesão e baixo acoplamento. Cada clas
 
 `Normalizador` e `Codificador` são protocolos. Trocar a estratégia de codificação não exige alterar o construtor nem o serviço. Todo script Python deste plugin segue esse padrão.
 
-## Configuração
+### Configuração
 
 O arquivo `.mcp.json` declara o conector `zip1` como servidor MCP por HTTP. O conector não exige variáveis de ambiente. O agente `encurtador` usa o zip1 com qualquer um dos dois nomes: o conector vinculado à conta no Cowork ou o servidor do plugin no Claude Code.
 
@@ -196,7 +155,7 @@ O agente `analisador` grava o prompt em `${CLAUDE_PLUGIN_DATA}/prompt.txt`, a pa
 
 O plugin não abre o link curto para testar. O zip1.io conta cada acesso como clique, então a conferência usa a consulta de estatísticas do conector. O link chega à pessoa com as estatísticas zeradas.
 
-## Privacidade
+### Privacidade
 
 O prompt viaja dentro da URL. Quem recebe o link lê o texto completo. O zip1.io é um serviço externo e guarda a URL longa para redirecionar.
 
@@ -204,16 +163,85 @@ Não use este plugin com prompt que contenha dado pessoal, credencial ou informa
 
 O link curto não expira por padrão. Para limitar o acesso, peça uma senha, um prazo de validade ou um número máximo de cliques. O conector `zip1` aceita os três controles.
 
-## Contribuição
+## Requisitos
 
-Abra uma issue para relatar erro de codificação, destino fora do ar ou pedido de novo LLM. Para enviar código, abra um pull request.
+| Item | Necessário | Se faltar |
+|------|------------|-----------|
+| Python 3.8 ou superior | Sim | O script de codificação não roda. No Windows, o comando costuma ser `python` em vez de `python3` |
+| Conector `zip1` | Não | O plugin entrega a URL longa, sem encurtar, e informa o código e o significado do erro |
 
-Todo script Python deste plugin segue o padrão descrito em "Arquitetura do script".
+O script usa apenas a biblioteca padrão do Python. Você não instala nenhuma dependência externa.
 
-## Padrão de escrita
+## Como instalar no Claude Cowork
 
-Este README segue o PZCT-PTS100, um padrão autoral de português técnico simplificado. O padrão pede ordem direta, uma ideia por frase, voz ativa e léxico comum.
+O Cowork instala o plugin pelo marketplace do repositório.
+
+1. Abra a aba **Cowork** no aplicativo Claude.
+2. Selecione **Personalizar** na barra lateral esquerda.
+3. Clique na aba **Plugins**.
+4. Clique no botão **Adicionar**.
+5. Escolha **Adicionar marketplace**.
+6. Escolha **Adicioar de um repositório**.
+7. Informe o endereço `https://github.com/marioluciofjr/prompt-link`.
+8. Instale o plugin prompt-link na lista que aparece.
+
+O Cowork guarda o plugin no seu computador. Instale plugins apenas de fontes que você conhece.
+
+### Depois de instalar
+
+Autorize o conector `zip1` quando o aplicativo pedir. Sem essa autorização, o plugin monta e testa o link, mas entrega a URL longa.
+
+## Como instalar no Claude Code
+
+Execute os dois comandos no terminal:
+
+```
+/plugin marketplace add marioluciofjr/prompt-link
+/plugin install prompt-link@marioluciofjr
+```
+
+## Exemplos de uso
+
+Peça em linguagem natural:
+
+- "Transforma esse texto em um link do ChatGPT"
+- "Gera um link de prompt com isso aqui"
+- "Encurta esse prompt em link pra eu compartilhar no Perplexity"
+- "Como fica esse texto em percent-encoding pro grok.com/?q="
+
+O fluxo roda em três etapas:
+
+| Etapa | Ação | Responsável |
+|-------|------|-------------|
+| 1 | Confere se há prompt, se há destino válido e se a URL cabe no limite | Agente `analisador` |
+| 2 | Codifica o texto e monta a URL longa | Agente `montador` |
+| 3 | Encurta pelo zip1.io, testa e entrega o link | Agente `encurtador` |
+
+O `analisador` aponta todas as pendências de uma vez. Se faltar algo, o Claude pergunta antes de montar o link.
+
+## Links úteis
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+
+## Contribuições
+Abra uma issue para relatar erro de codificação, destino fora do ar ou pedido de novo LLM. Para enviar código, abra um pull request. Todo script Python deste plugin segue o padrão descrito em "Arquitetura do script".
 
 ## Licença
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-MIT. Leia o arquivo `LICENSE`.
+## Contato
+Mário Lúcio - Prazo Certo®
+<div>
+  <a href="https://www.linkedin.com/in/marioluciofjr" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
+  <a href = "mailto:marioluciofjr@gmail.com" target="_blank"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white"></a>
+  <a href="https://prazocerto.me/contato" target="_blank"><img src="https://img.shields.io/badge/prazocerto.me/contato-230023?style=for-the-badge&logo=wordpress&logoColor=white"></a>
+</div>
+
