@@ -190,16 +190,16 @@ O fluxo roda em três etapas:
 O `analisador` aponta todas as pendências de uma vez. Se faltar algo, o Claude pergunta antes de montar o link.
 
 ## Links úteis
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
+* [Usar plugins no Claude e no Claude Cowork — Central de Ajuda da Anthropic](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)
+* [Criar plugins para o Claude Code — documentação oficial](https://code.claude.com/docs/pt/plugins)
+* [Marketplaces de plugins — documentação oficial](https://code.claude.com/docs/pt/plugin-marketplaces)
+* [Subagentes no Claude Code — documentação oficial](https://code.claude.com/docs/pt/sub-agents)
+* [Skills no Claude Code — documentação oficial](https://code.claude.com/docs/pt/skills)
+* [Model Context Protocol (MCP) — documentação oficial](https://modelcontextprotocol.io/)
+* [API do zip1.io — criação de links, estatísticas e códigos de erro](https://zip1.io/api)
+* [MCP do zip1.io — ferramentas e configuração do conector](https://zip1.io/mcp-docs)
+* [RFC 3986 — sintaxe de URI e regras de percent-encoding](https://www.rfc-editor.org/rfc/rfc3986.html)
+* [Percent-encoding — glossário da MDN Web Docs](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)
 
 ## Contribuições
 Abra uma issue para relatar erro de codificação, destino fora do ar ou pedido de novo LLM. Para enviar código, abra um pull request. Todo script Python deste plugin segue o padrão descrito em "Arquitetura do script".
