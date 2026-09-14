@@ -1,0 +1,38 @@
+{
+  "name": "marioluciofjr",
+  "owner": {
+    "name": "Mário Lúcio",
+    "email": "marioluciofjr@gmail.com",
+    "url": "https://github.com/marioluciofjr"
+  },
+  "metadata": {
+    "description": "Marketplace de plugins de Mário Lúcio para Claude Code e Cowork.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "prompt-link",
+      "source": "./",
+      "description": "Transforma qualquer texto em um link de prompt pronto para Claude, ChatGPT, Perplexity ou Grok, confere o limite de 7500 caracteres, encurta pelo zip1.io, testa e entrega o link aprovado.",
+      "author": {
+        "name": "Mário Lúcio",
+        "email": "marioluciofjr@gmail.com"
+      },
+      "homepage": "https://github.com/marioluciofjr/prompt-link",
+      "repository": "https://github.com/marioluciofjr/prompt-link",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": [
+        "prompt",
+        "prompt-link",
+        "query-string",
+        "percent-encoding",
+        "url-shortener",
+        "claude",
+        "chatgpt",
+        "perplexity",
+        "grok"
+      ]
+    }
+  ]
+}

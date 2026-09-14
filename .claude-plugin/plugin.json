@@ -1,0 +1,24 @@
+{
+  "name": "prompt-link",
+  "version": "0.4.0",
+  "description": "Transforma qualquer texto em um link de prompt pronto para Claude, ChatGPT, Perplexity ou Grok, confere o limite de 7500 caracteres, encurta pelo zip1.io, testa e entrega o link aprovado.",
+  "author": {
+    "name": "Mário Lúcio",
+    "email": "marioluciofjr@gmail.com",
+    "url": "https://github.com/marioluciofjr"
+  },
+  "homepage": "https://github.com/marioluciofjr/prompt-link",
+  "repository": "https://github.com/marioluciofjr/prompt-link",
+  "keywords": [
+    "prompt",
+    "prompt-link",
+    "query-string",
+    "percent-encoding",
+    "url-shortener",
+    "claude",
+    "chatgpt",
+    "perplexity",
+    "grok"
+  ],
+  "license": "MIT"
+}
