@@ -27,7 +27,7 @@
 * [Contato](#contato)
 
 ## Introdução
-O plugin prompt-link transforma qualquer texto em um link de prompt pronto. O link abre o Claude, o ChatGPT, o Perplexity ou o Grok com o texto já preenchido. O plugin codifica o texto, confere o limite de tamanho, encurta pelo zip1.io, testa o link e entrega o endereço aprovado.
+O plugin prompt-link transforma qualquer texto em um link de prompt pronto. O link abre o Claude, o ChatGPT, o Perplexity ou o Grok com o texto já preenchido. O plugin codifica o texto, confere o limite de tamanho, encurta pelo zip1.io, confere o link e entrega o endereço aprovado.
 
 ## Estrutura do projeto
 Quem recebe um prompt em texto precisa copiar e colar. Um link de prompt elimina esses dois passos.
@@ -51,19 +51,21 @@ O plugin não tem destino padrão. Se você não informar o destino, o Claude pe
 
 ### Formato da entrega
 
-A entrega final mostra dois endereços:
+A entrega final mostra dois endereços e uma tabela de verificações:
 
 | Endereço | Para que serve |
 |----------|----------------|
 | Link curto | Abre o LLM com o prompt preenchido |
 | Link de estatísticas | Mostra cliques totais e únicos do link curto. O zip1.io gera um link de estatísticas para cada link curto |
 
+A tabela de verificações confirma o destino, o round-trip do texto, o redirecionamento, o parâmetro `q` e o tamanho da URL longa. O modelo completo está em `assets/formato-entrega.md`.
+
 A URL longa fica fora da entrega. Ela já existe dentro do link curto e atrapalha a leitura.
 
 Dois casos abrem exceção:
 
 1. O zip1.io devolve erro ou não responde. O plugin entrega a URL longa e informa o código e o significado do erro. Exemplo: o erro `429` indica o limite de 10 links por minuto por IP.
-2. Você pede o link completo. O plugin entrega os dois endereços.
+2. Você pede o link completo. O plugin acrescenta a URL longa à entrega.
 
 ### Limite de tamanho
 
@@ -160,7 +162,7 @@ O Cowork instala o plugin pelo marketplace do repositório.
 3. Clique na aba **Plugins**.
 4. Clique no botão **Adicionar**.
 5. Escolha **Adicionar marketplace**.
-6. Escolha **Adicioar de um repositório**.
+6. Escolha **Adicionar de um repositório**.
 7. Informe o endereço `https://github.com/marioluciofjr/prompt-link`.
 8. Instale o plugin prompt-link na lista que aparece.
 
@@ -168,7 +170,7 @@ O Cowork guarda o plugin no seu computador. Instale plugins apenas de fontes que
 
 ### Depois de instalar
 
-Autorize o conector `zip1` quando o aplicativo pedir. Sem essa autorização, o plugin monta e testa o link, mas entrega a URL longa.
+Autorize o conector `zip1` quando o aplicativo pedir. Sem essa autorização, o plugin monta e confere o link, mas entrega a URL longa e informa o código e o significado do erro.
 
 ## Como instalar no Claude Code
 
@@ -194,7 +196,7 @@ O fluxo roda em três etapas:
 |-------|------|-------------|
 | 1 | Confere se há prompt, se há destino válido e se a URL cabe no limite | Agente `analisador` |
 | 2 | Codifica o texto e monta a URL longa | Agente `montador` |
-| 3 | Encurta pelo zip1.io, testa e entrega o link | Agente `encurtador` |
+| 3 | Encurta pelo zip1.io, confere o link e faz a entrega | Agente `encurtador` |
 
 O `analisador` aponta todas as pendências de uma vez. Se faltar algo, o Claude pergunta antes de montar o link.
 
