@@ -19,11 +19,11 @@ O plugin resolve três problemas dessa conversão:
 O Cowork instala o plugin pelo marketplace do repositório.
 
 1. Abra a aba **Cowork** no aplicativo Claude.
-2. Selecione **Customize** na barra lateral esquerda.
+2. Selecione **Personalizar** na barra lateral esquerda.
 3. Clique na aba **Plugins**.
-4. Clique no botão **+** da seção **Personal plugins**.
-5. Escolha **Add marketplace**.
-6. Escolha **Add from a repository**.
+4. Clique no botão **Adicionar**.
+5. Escolha **Adicionar marketplace**.
+6. Escolha **Adicioar de um repositório**.
 7. Informe o endereço `https://github.com/marioluciofjr/prompt-link`.
 8. Instale o plugin prompt-link na lista que aparece.
 
