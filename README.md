@@ -95,36 +95,6 @@ A skill traz três referências e um modelo:
 | Agente | `encurtador` | Encurta pelo zip1.io, confere no zip1.io o destino do link curto e faz a entrega final |
 | Conector | `zip1` | Servidor MCP do encurtador zip1.io (`https://zip1.io/mcp`) |
 
-### Script auxiliar
-
-```bash
-# confere prompt, destino e limite (sem --destino, mede os quatro destinos)
-python3 skills/prompt-link/scripts/montar_query.py --analisar --arquivo prompt.txt --destino chatgpt
-
-# monta a URL do destino escolhido e valida o round-trip
-python3 skills/prompt-link/scripts/montar_query.py --destino chatgpt --arquivo prompt.txt
-
-# confere se uma URL leva ao destino com o prompt idêntico ao arquivo
-python3 skills/prompt-link/scripts/montar_query.py --conferir "https://chatgpt.com/?q=..." --arquivo prompt.txt --destino chatgpt
-
-# decodifica uma URL de prompt de volta ao texto original
-python3 skills/prompt-link/scripts/montar_query.py --decodificar "https://perplexity.ai/search/new?q=..."
-
-# lista os destinos suportados
-python3 skills/prompt-link/scripts/montar_query.py --listar-destinos
-```
-
-O texto pode vir de `--arquivo`, do argumento posicional ou de stdin. Prefira `--arquivo`: ele lê em UTF-8 em qualquer sistema. No Windows, troque `python3` por `python` se o comando não existir.
-
-O script devolve JSON. Os códigos de retorno são quatro:
-
-| Código | Significado |
-|--------|-------------|
-| `0` | Aprovado |
-| `1` | Entrada inválida ou pendente |
-| `2` | Round-trip ou conferência falhou |
-| `3` | URL acima de 7.500 caracteres |
-
 ### Arquitetura do script
 
 O script é orientado a objetos, com alta coesão e baixo acoplamento. Cada classe tem uma responsabilidade e recebe suas dependências no construtor.
